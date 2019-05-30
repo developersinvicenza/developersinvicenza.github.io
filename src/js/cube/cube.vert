@@ -7,9 +7,10 @@ attribute float delay;
 
 uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
-uniform float uSpeed;// ms({ value: 0.0, step: 0.001, range: [-10, 10] })
-uniform float uForce;// ms({ value: 0.0, step: 0.001, range: [-10, 10] })
-uniform float uRotation;// ms({ value: -0.35, step: 0.001, range: [-1, 1] })
+uniform float uSpeed; // ms({ value: 0.0, step: 0.001, range: [-10, 10] })
+uniform float uForce; // ms({ value: 0.0, step: 0.001, range: [-10, 10] })
+uniform float uRotation; // ms({ value: -0.35, step: 0.001, range: [-1, 1] })
+uniform float uTime;
 
 varying vec2 vUv;
 varying float vDelay;
@@ -48,11 +49,11 @@ void main(){
   float force=pos.x*uForce;
   
   pos.xyz+=pivot;
-  pos=pos*rotateX(force+uSpeed);
+  pos=pos*rotateX(force+uTime * 3.0);
   // vNormal = vNormal * rotateX(-(force + speed));
   pos.xyz-=pivot;
   
-  pos=pos*rotateZ(uRotation);
+  // pos=pos*rotateZ(uRotation);
   
   pos+=offset;
   

@@ -4,10 +4,10 @@ import deferred from './utils/deferred';
 
 const Resource = Loader.Resource;
 const RESOURCES = [
-  // {
-  //   name: 'photo',
-  //   url: require('/assets/photo.jpg')
-  // },
+  {
+    name: 'texture',
+    url: require('/assets/texture.png')
+  },
 
   // {
   //   name: 'photo',
