@@ -3,17 +3,20 @@ precision highp float;
 attribute vec3 position;
 attribute vec3 offset;
 attribute vec2 uv;
-attribute float delay;
+attribute vec3 normal;
+// attribute float delay;
 
 uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
+uniform mat3 normalMatrix;
 uniform float uSpeed; // ms({ value: 0.0, step: 0.001, range: [-10, 10] })
 uniform float uForce; // ms({ value: 0.0, step: 0.001, range: [-10, 10] })
 uniform float uRotation; // ms({ value: -0.35, step: 0.001, range: [-1, 1] })
 uniform float uTime;
 
 varying vec2 vUv;
-varying float vDelay;
+// varying float vDelay;
+varying vec3 vNormal;
 
 mat3 rotateX(float theta){
   float c=cos(theta);
@@ -41,7 +44,8 @@ mat3 rotateZ(float theta){
 void main(){
   vUv=uv;
   vUv=clamp(vUv,0.,.999);
-  vDelay=delay;
+  // vDelay=delay;
+  vNormal = normal * normalMatrix;
   
   vec3 pos=position;
   vec3 pivot=vec3(0.,0.,0.);
@@ -49,8 +53,11 @@ void main(){
   float force=pos.x*uForce;
   
   pos.xyz+=pivot;
-  pos=pos*rotateX(force+uTime * 3.0);
-  // vNormal = vNormal * rotateX(-(force + speed));
+
+  float angle = force + uTime * 3.0;
+  
+  pos= pos * rotateX(angle);
+  vNormal = vNormal * rotateX(-angle);
   pos.xyz-=pivot;
   
   // pos=pos*rotateZ(uRotation);
