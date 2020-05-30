@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel src/index.html --no-autoinstall --open",
+    "dev": "parcel src/index.html --no-autoinstall --open --port 3000",
     "build": "parcel build src/index.html -d ."
   },
   "repository": {
